@@ -1,6 +1,11 @@
 import React from 'react';
 import Counter from '../counter/Counter';
-import { getByTestId, render } from '@testing-library/react';
+import {
+	getByTestId,
+	render,
+	fireEvent,
+	getByDisplayValue,
+} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 test('header renders with correct text', () => {
@@ -33,5 +38,25 @@ test('subtract button renders with -', () => {
 test('input countains 1 initially', () => {
 	const { getByTestId } = render(<Counter />);
 	const counterEl = getByTestId('input');
+	expect(counterEl.value).toBe(1);
+});
+test('change of input value event', () => {
+	const { getByTestId } = render(<Counter />);
+	const inputEl = getByTestId('input');
+	fireEvent.change(inputEl, {
+		target: {
+			value: '1',
+		},
+	});
+	expect(inputEl.value).toBe('1');
+});
+
+test('increase counter value by 1 when add button is clicked', () => {
+	const { getByTestId } = render(<Counter />);
+	const btnEl = getByTestId('add-button');
+	const counterEl = getByTestId('counter');
+
+	expect(counterEl.textContent).toBe(0);
+	fireEvent.click(btnEl);
 	expect(counterEl.textContent).toBe(1);
 });
