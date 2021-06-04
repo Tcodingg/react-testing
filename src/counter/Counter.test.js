@@ -69,3 +69,16 @@ test('decrease counter value by 1 when subtract button is clicked', () => {
 	fireEvent.click(btnEl);
 	expect(counterEl.textContent).toBe(-1);
 });
+
+test('change the counter color from green to red when counter value is > 5', () => {
+	const { getByTestId } = render(<Counter />);
+	const btnEl = getByTestId('add-button');
+	const counterEl = getByTestId('counter');
+
+	fireEvent.click(btnEl);
+	fireEvent.click(btnEl);
+	fireEvent.click(btnEl);
+	fireEvent.click(btnEl);
+	fireEvent.click(btnEl);
+	expect(counterEl.className).toBe('red');
+});
