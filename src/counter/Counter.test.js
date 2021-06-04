@@ -60,3 +60,12 @@ test('increase counter value by 1 when add button is clicked', () => {
 	fireEvent.click(btnEl);
 	expect(counterEl.textContent).toBe(1);
 });
+test('decrease counter value by 1 when subtract button is clicked', () => {
+	const { getByTestId } = render(<Counter />);
+	const btnEl = getByTestId('subtract-button');
+	const counterEl = getByTestId('counter');
+
+	expect(counterEl.textContent).toBe(0);
+	fireEvent.click(btnEl);
+	expect(counterEl.textContent).toBe(-1);
+});
